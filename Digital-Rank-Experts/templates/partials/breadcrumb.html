@@ -1,0 +1,33 @@
+{# Usage: {% include 'partials/breadcrumb.html' %} after setting page_title and breadcrumbs=[('Label', url_or_none), ...] #}
+<div class="breadcrumb-band">
+  <div class="dre-container">
+    <p class="eyebrow mb-2">{{ page_eyebrow if page_eyebrow is defined else 'Digital Rank Experts' }}</p>
+    <h1 class="text-white mb-3" style="font-size:clamp(1.9rem,3.4vw,2.6rem);">{{ page_title if page_title is defined else 'Page' }}</h1>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+        <li class="breadcrumb-item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="{{ url_for('main.index') }}" itemprop="item"><span itemprop="name">Home</span></a>
+          <meta itemprop="position" content="1">
+        </li>
+        {% if breadcrumbs is defined %}
+          {% for label, link in breadcrumbs %}
+          <li class="breadcrumb-item {{ 'active' if not link }}" {{ 'aria-current=page' if not link }}
+              itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+            {% if link %}
+              <a href="{{ link }}" itemprop="item"><span itemprop="name">{{ label }}</span></a>
+            {% else %}
+              <span itemprop="name">{{ label }}</span>
+            {% endif %}
+            <meta itemprop="position" content="{{ loop.index + 1 }}">
+          </li>
+          {% endfor %}
+        {% else %}
+          <li class="breadcrumb-item active" aria-current="page" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+            <span itemprop="name">{{ page_title if page_title is defined else 'Page' }}</span>
+            <meta itemprop="position" content="2">
+          </li>
+        {% endif %}
+      </ol>
+    </nav>
+  </div>
+</div>

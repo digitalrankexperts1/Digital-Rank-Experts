@@ -1,0 +1,61 @@
+<div class="dre-card">
+  <h4 class="mb-1">Tell us about your project</h4>
+  <p class="text-secondary mb-4">We reply within one business day &mdash; usually sooner.</p>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <div class="alert alert-{{ 'danger' if category == 'error' else category }} alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  <form method="post" action="{{ url_for('main.contact') }}" class="needs-validation" novalidate>
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <div class="row g-3">
+      <div class="col-md-6">
+        <label for="cf_name">Full Name</label>
+        <input type="text" class="form-control" id="cf_name" name="name" required>
+        <div class="invalid-feedback">Please enter your name.</div>
+      </div>
+      <div class="col-md-6">
+        <label for="cf_email">Email Address</label>
+        <input type="email" class="form-control" id="cf_email" name="email" required>
+        <div class="invalid-feedback">Please enter a valid email.</div>
+      </div>
+      <div class="col-md-6">
+        <label for="cf_phone">Phone Number</label>
+        <input type="tel" class="form-control" id="cf_phone" name="phone">
+      </div>
+      <div class="col-md-6">
+        <label for="cf_service">Service Interested In</label>
+        <select class="form-select" id="cf_service" name="service">
+          <option selected disabled value="">Choose a service&hellip;</option>
+          <option>Search Engine Optimization</option>
+          <option>Local SEO</option>
+          <option>Technical SEO</option>
+          <option>Link Building</option>
+          <option>Google &amp; Facebook Ads</option>
+          <option>Website / Shopify Development</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="col-12">
+        <label for="cf_message">Project Details</label>
+        <textarea class="form-control" id="cf_message" name="message" rows="4" required></textarea>
+        <div class="invalid-feedback">Please tell us a little about your project.</div>
+      </div>
+      <div class="col-12 form-check ps-4">
+        <input type="checkbox" class="form-check-input" id="cf_consent" name="consent" required>
+        <label class="form-check-label fw-normal" for="cf_consent">I agree to be contacted regarding my enquiry.</label>
+        <div class="invalid-feedback">Consent is required to proceed.</div>
+      </div>
+      <div class="col-12">
+        <button type="submit" class="btn btn-signal btn-lg w-100">Send Message</button>
+      </div>
+    </div>
+  </form>
+</div>

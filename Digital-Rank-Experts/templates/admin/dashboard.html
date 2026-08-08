@@ -1,0 +1,88 @@
+{% extends "admin/base.html" %}
+{% set admin_page_title = "Dashboard" %}
+{% block title %}Dashboard | Admin | Digital Rank Experts{% endblock %}
+
+{% block content %}
+<div class="row g-4 mb-4">
+  <div class="col-6 col-xl-3">
+    <div class="kpi-card">
+      <div class="d-flex justify-content-between align-items-start mb-2">
+        <span class="text-secondary small">Total Leads</span>
+        <span class="rank-chip up"><i class="fa-solid fa-arrow-up"></i> 14%</span>
+      </div>
+      <div class="num">248</div>
+    </div>
+  </div>
+  <div class="col-6 col-xl-3">
+    <div class="kpi-card">
+      <div class="d-flex justify-content-between align-items-start mb-2">
+        <span class="text-secondary small">Active Clients</span>
+        <span class="rank-chip up"><i class="fa-solid fa-arrow-up"></i> 3</span>
+      </div>
+      <div class="num">42</div>
+    </div>
+  </div>
+  <div class="col-6 col-xl-3">
+    <div class="kpi-card">
+      <div class="d-flex justify-content-between align-items-start mb-2">
+        <span class="text-secondary small">Published Posts</span>
+        <span class="rank-chip flat"><i class="fa-solid fa-minus"></i> 0</span>
+      </div>
+      <div class="num">67</div>
+    </div>
+  </div>
+  <div class="col-6 col-xl-3">
+    <div class="kpi-card">
+      <div class="d-flex justify-content-between align-items-start mb-2">
+        <span class="text-secondary small">Avg. Client Rank</span>
+        <span class="rank-chip up"><i class="fa-solid fa-arrow-up"></i> 1.8</span>
+      </div>
+      <div class="num">5.4</div>
+    </div>
+  </div>
+</div>
+
+<div class="row g-4 mb-4">
+  <div class="col-lg-8">
+    <div class="kpi-card">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h6 class="mb-0">Organic Traffic &mdash; Last 6 Months</h6>
+        <span class="small text-secondary">Chart data connects to /admin/api/traffic</span>
+      </div>
+      <div class="d-flex align-items-center justify-content-center" style="height:260px; background:var(--paper); border-radius:var(--radius-sm); border:1px dashed var(--line);">
+        <span class="text-secondary small"><i class="fa-solid fa-chart-area me-2"></i>Chart placeholder &mdash; render with Chart.js on the backend</span>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-4">
+    <div class="kpi-card h-100">
+      <h6 class="mb-3">Lead Sources</h6>
+      <div class="d-flex align-items-center justify-content-center" style="height:220px; background:var(--paper); border-radius:var(--radius-sm); border:1px dashed var(--line);">
+        <span class="text-secondary small"><i class="fa-solid fa-chart-pie me-2"></i>Chart placeholder</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="kpi-card">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h6 class="mb-0">Recent Contact Leads</h6>
+    <a href="{{ url_for('admin.messages_list') }}" class="small">View all</a>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-dre mb-0">
+      <thead><tr><th>Name</th><th>Service</th><th>Received</th><th>Status</th></tr></thead>
+      <tbody>
+        {% for lead in (recent_leads if recent_leads is defined else [
+          ('Ali Hassan','SEO','2 hours ago','live'),('Zainab Malik','Website Development','Yesterday','draft'),('Faisal Ahmed','Local SEO','2 days ago','paused')
+        ]) %}
+        <tr>
+          <td>{{ lead[0] }}</td><td>{{ lead[1] }}</td><td class="text-secondary">{{ lead[2] }}</td>
+          <td><span class="status-badge {{ lead[3] }}">{{ 'New' if lead[3]=='live' else ('Contacted' if lead[3]=='draft' else 'Closed') }}</span></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

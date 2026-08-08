@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% set page_title = "Our Services" %}
+{% set page_eyebrow = "What We Do" %}
+{% set breadcrumbs = [('Services', none)] %}
+
+{% block title %}SEO &amp; Digital Marketing Services | Digital Rank Experts{% endblock %}
+{% block meta_description %}Explore SEO, local SEO, technical SEO, link building, Google &amp; Facebook Ads, and website development services from Digital Rank Experts, Lahore.{% endblock %}
+
+{% block schema %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "itemListElement": [
+    {% for s in services %}
+    {
+      "@type": "Service",
+      "position": {{ loop.index }},
+      "name": "{{ s.name }}",
+      "url": "{{ request.url_root.rstrip('/') }}{{ url_for('main.service_detail', slug=s.slug) }}",
+      "provider": {"@type": "Organization", "name": "Digital Rank Experts"}
+    }{{ "," if not loop.last }}
+    {% endfor %}
+  ]
+}
+</script>
+{% endblock %}
+
+{% block content %}
+{% include 'partials/breadcrumb.html' %}
+
+<section>
+  <div class="dre-container">
+    {% set services = services if services is defined else [
+      {'name':'Search Engine Optimization','slug':'seo','icon':'fa-magnifying-glass-chart','desc':'Full-funnel organic strategy across technical, content, and authority pillars.'},
+      {'name':'Local SEO','slug':'local-seo','icon':'fa-location-dot','desc':'Rank in the map pack and local organic results across every service area.'},
+      {'name':'Technical SEO','slug':'technical-seo','icon':'fa-gears','desc':'Crawlability, Core Web Vitals, indexation, and site architecture fixes.'},
+      {'name':'On-Page SEO','slug':'on-page-seo','icon':'fa-file-lines','desc':'Content, metadata, and internal linking aligned to search intent.'},
+      {'name':'Off-Page SEO','slug':'off-page-seo','icon':'fa-globe','desc':'Digital PR and authority building beyond your own domain.'},
+      {'name':'Link Building','slug':'link-building','icon':'fa-link','desc':'Editorial backlinks earned from relevant, high-authority publications.'},
+      {'name':'Guest Posting','slug':'guest-posting','icon':'fa-newspaper','desc':'Placements on niche-relevant sites that build both links and reputation.'},
+      {'name':'Digital Marketing','slug':'digital-marketing','icon':'fa-chart-line','desc':'Integrated strategy connecting SEO, paid, content, and social.'},
+      {'name':'Social Media Marketing','slug':'social-media-marketing','icon':'fa-share-nodes','desc':'Organic and paid social built to support search visibility.'},
+      {'name':'Google Ads','slug':'google-ads','icon':'fa-google','desc':'Search, Shopping, and Performance Max campaigns tied to revenue.'},
+      {'name':'Facebook Ads','slug':'facebook-ads','icon':'fa-meta','desc':'Meta campaigns engineered for qualified leads, not vanity reach.'},
+      {'name':'Content Marketing','slug':'content-marketing','icon':'fa-pen-nib','desc':'Search-informed content that ranks and reads like it was written for humans.'},
+      {'name':'Website Development','slug':'website-development','icon':'fa-code','desc':'Fast, semantic, SEO-ready builds — custom, WordPress, or headless.'},
+      {'name':'WordPress Development','slug':'wordpress-development','icon':'fa-wordpress','desc':'Custom WordPress builds engineered for speed and SEO from day one.'},
+      {'name':'Shopify Development','slug':'shopify-development','icon':'fa-shopify','desc':'Conversion-focused Shopify storefronts built to rank and sell.'},
+      {'name':'E-commerce SEO','slug':'ecommerce-seo','icon':'fa-cart-shopping','desc':'Category and product page architecture built for search and conversion.'},
+      {'name':'GBP Optimization','slug':'gbp-optimization','icon':'fa-map-location-dot','desc':'Google Business Profile management to win the local pack.'}
+    ] %}
+    <div class="row g-4">
+      {% for s in services %}
+      <div class="col-md-6 col-lg-4 reveal">
+        <a href="{{ url_for('main.service_detail', slug=s.slug) }}" class="text-decoration-none text-reset">
+          <div class="dre-card">
+            <div class="icon-tile"><i class="fa-solid {{ s.icon }}"></i></div>
+            <h5>{{ s.name }}</h5>
+            <p class="text-secondary mb-2">{{ s.desc }}</p>
+            <span class="fw-semibold" style="color:var(--signal);">View service <i class="fa-solid fa-arrow-right-long ms-1"></i></span>
+          </div>
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% include 'partials/why_choose_us.html' %}
+{% include 'partials/pricing.html' %}
+{% include 'partials/faq.html' %}
+{% include 'partials/cta.html' %}
+{% endblock %}

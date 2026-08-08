@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% set page_title = "Blog" %}
+{% set page_eyebrow = "Insights" %}
+{% set breadcrumbs = [('Blog', none)] %}
+{% set pagination_endpoint = 'blog' %}
+
+{% block title %}SEO &amp; Digital Marketing Blog | Digital Rank Experts{% endblock %}
+{% block meta_description %}Practical SEO, local search, and digital marketing insights from the Digital Rank Experts team in Lahore, Pakistan.{% endblock %}
+
+{% block content %}
+{% include 'partials/breadcrumb.html' %}
+
+<section>
+  <div class="dre-container">
+    <div class="row gy-5">
+      <div class="col-lg-8">
+        <div class="row g-4">
+          {% set posts = posts if posts is defined else [
+            {'title':'12 Local SEO Ranking Factors That Actually Move the Needle in 2026','slug':'local-seo-ranking-factors-2026','category':'Local SEO','date':'Jul 28, 2026','excerpt':'Google\'s local algorithm rewards a narrower set of signals than most guides admit. Here\'s what we prioritize for clients.'},
+            {'title':'How We Increased Organic Traffic 4.6x for an E-commerce Client','slug':'organic-traffic-case-study','category':'SEO Strategy','date':'Jul 14, 2026','excerpt':'A category-page architecture rebuild, a link campaign, and eight months of consistent execution.'},
+            {'title':'Technical SEO Checklist for Shopify Stores','slug':'technical-seo-shopify-checklist','category':'Web Development','date':'Jun 30, 2026','excerpt':'The Shopify-specific technical issues we find on almost every audit — and how to fix them.'},
+            {'title':'Guest Posting in 2026: What Still Works','slug':'guest-posting-2026','category':'Content Marketing','date':'Jun 12, 2026','excerpt':'Relevance and editorial standards beat volume every time. Here\'s our current outreach framework.'},
+            {'title':'Google Ads vs SEO: Where Should Your First Rupee Go?','slug':'google-ads-vs-seo','category':'Paid Ads','date':'May 29, 2026','excerpt':'A practical framework for sequencing paid and organic spend based on your sales cycle.'},
+            {'title':'Core Web Vitals in 2026: What Actually Affects Rankings','slug':'core-web-vitals-2026','category':'SEO Strategy','date':'May 10, 2026','excerpt':'INP replaced FID — here\'s what changed and how we optimize for it.'}
+          ] %}
+          {% for post in posts %}
+          <div class="col-sm-6 reveal">
+            <article class="blog-card h-100">
+              <a href="{{ url_for('main.blog_detail', slug=post.slug) }}">
+                <div style="background:var(--indigo-tint);" class="blog-card-img" role="img" aria-label="{{ post.title }}">
+                  <div style="aspect-ratio:16/10;"></div>
+                </div>
+              </a>
+              <div class="p-4">
+                <div class="d-flex align-items-center gap-2 mb-2">
+                  <span class="tag-pill">{{ post.category }}</span>
+                  <span class="small text-secondary">{{ post.date }}</span>
+                </div>
+                <h5><a href="{{ url_for('main.blog_detail', slug=post.slug) }}" class="text-reset text-decoration-none">{{ post.title }}</a></h5>
+                <p class="text-secondary small mb-0">{{ post.excerpt }}</p>
+              </div>
+            </article>
+          </div>
+          {% endfor %}
+        </div>
+        {% include 'partials/pagination.html' %}
+      </div>
+      <div class="col-lg-4">
+        {% include 'partials/sidebar.html' %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% include 'partials/newsletter.html' %}
+{% endblock %}

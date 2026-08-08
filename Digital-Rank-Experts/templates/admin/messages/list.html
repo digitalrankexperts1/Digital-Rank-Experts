@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container" style="padding: 40px 20px;">
+
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:30px;">
+        <div>
+            <h1>Contact Messages</h1>
+            <p>Manage messages received from your website.</p>
+        </div>
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div style="padding:12px; margin-bottom:15px; border-radius:6px; background:#f1f1f1;">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    {% if messages %}
+
+        <div style="overflow-x:auto;">
+            <table style="width:100%; border-collapse:collapse;">
+
+                <thead>
+                    <tr>
+                        <th style="padding:12px; border-bottom:1px solid #ddd; text-align:left;">Name</th>
+                        <th style="padding:12px; border-bottom:1px solid #ddd; text-align:left;">Email</th>
+                        <th style="padding:12px; border-bottom:1px solid #ddd; text-align:left;">Phone</th>
+                        <th style="padding:12px; border-bottom:1px solid #ddd; text-align:left;">Subject</th>
+                        <th style="padding:12px; border-bottom:1px solid #ddd; text-align:left;">Message</th>
+                        <th style="padding:12px; border-bottom:1px solid #ddd; text-align:left;">Status</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for message in messages %}
+                    <tr>
+
+                        <td style="padding:12px; border-bottom:1px solid #eee;">
+                            {{ message.full_name }}
+                        </td>
+
+                        <td style="padding:12px; border-bottom:1px solid #eee;">
+                            {{ message.email }}
+                        </td>
+
+                        <td style="padding:12px; border-bottom:1px solid #eee;">
+                            {{ message.phone or "-" }}
+                        </td>
+
+                        <td style="padding:12px; border-bottom:1px solid #eee;">
+                            {{ message.subject or "-" }}
+                        </td>
+
+                        <td style="padding:12px; border-bottom:1px solid #eee;">
+                            {{ message.message }}
+                        </td>
+
+                        <td style="padding:12px; border-bottom:1px solid #eee;">
+                            {% if message.is_read %}
+                                <span>Read</span>
+                            {% else %}
+                                <strong>Unread</strong>
+                            {% endif %}
+                        </td>
+
+                    </tr>
+                    {% endfor %}
+                </tbody>
+
+            </table>
+        </div>
+
+    {% else %}
+
+        <div style="padding:40px; text-align:center;">
+            <h3>No messages found</h3>
+            <p>There are currently no contact messages.</p>
+        </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

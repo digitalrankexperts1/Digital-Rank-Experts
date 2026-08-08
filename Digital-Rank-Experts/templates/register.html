@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block title %}Create an Account | Digital Rank Experts{% endblock %}
+{% block meta_robots %}noindex, nofollow{% endblock %}
+{% block body_class %}auth-page{% endblock %}
+{% block navbar %}{% endblock %}
+{% block footer %}{% endblock %}
+
+{% block content %}
+<div class="auth-shell">
+  <div class="col-lg-5 d-none d-lg-flex auth-visual">
+    <a href="{{ url_for('main.index') }}" class="footer-brand text-decoration-none">Digital<span style="color:var(--signal-2)">Rank</span>Experts</a>
+    <div>
+      <p class="eyebrow mb-3" style="color:var(--signal-2);">Client Portal</p>
+      <h2 class="text-white mb-3">Set up your account in under a minute.</h2>
+      <p style="color:#AEB6C2;">We'll link your account to your active campaign as soon as onboarding is complete.</p>
+    </div>
+    <p class="small mb-0" style="color:#7C8698;">&copy; {{ current_year if current_year is defined else 2026 }} Digital Rank Experts</p>
+  </div>
+
+  <div class="col-lg-7 d-flex">
+    <div class="auth-card">
+      <div class="d-lg-none text-center mb-4">
+        <a href="{{ url_for('main.index') }}" class="footer-brand text-decoration-none" style="color:var(--ink);">DigitalRankExperts</a>
+      </div>
+      <h3 class="mb-1">Create your account</h3>
+      <p class="text-secondary mb-4">Get access to your live SEO dashboard.</p>
+
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <div class="alert alert-{{ 'danger' if category == 'error' else category }}" role="alert">{{ message }}</div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+
+      <form method="post" action="{{ url_for('register') }}" class="needs-validation" novalidate>
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <div class="row g-3">
+          <div class="col-sm-6">
+            <label for="regName">Full Name</label>
+            <input type="text" class="form-control" id="regName" name="name" required>
+            <div class="invalid-feedback">Please enter your name.</div>
+          </div>
+          <div class="col-sm-6">
+            <label for="regCompany">Company</label>
+            <input type="text" class="form-control" id="regCompany" name="company">
+          </div>
+          <div class="col-12">
+            <label for="regEmail">Email Address</label>
+            <input type="email" class="form-control" id="regEmail" name="email" required>
+            <div class="invalid-feedback">Please enter a valid email.</div>
+          </div>
+          <div class="col-sm-6">
+            <label for="regPassword">Password</label>
+            <input type="password" class="form-control" id="regPassword" name="password" required minlength="8">
+            <div class="invalid-feedback">Minimum 8 characters.</div>
+          </div>
+          <div class="col-sm-6">
+            <label for="regPasswordConfirm">Confirm Password</label>
+            <input type="password" class="form-control" id="regPasswordConfirm" name="password_confirm" required minlength="8">
+            <div class="invalid-feedback">Passwords must match.</div>
+          </div>
+          <div class="col-12 form-check ps-4">
+            <input type="checkbox" class="form-check-input" id="regTerms" name="terms" required>
+            <label class="form-check-label fw-normal" for="regTerms">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.</label>
+            <div class="invalid-feedback">You must accept the terms to continue.</div>
+          </div>
+          <div class="col-12">
+            <button type="submit" class="btn btn-signal btn-lg w-100">Create Account</button>
+          </div>
+        </div>
+      </form>
+      <p class="text-center text-secondary mt-4 mb-0">Already have an account? <a href="{{ url_for('auth.login') }}">Log in</a></p>
+    </div>
+  </div>
+</div>
+{% endblock %}

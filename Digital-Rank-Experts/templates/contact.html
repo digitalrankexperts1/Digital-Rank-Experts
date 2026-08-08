@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% set page_title = "Contact Us" %}
+{% set page_eyebrow = "Get In Touch" %}
+{% set breadcrumbs = [('Contact', none)] %}
+
+{% block title %}Contact Digital Rank Experts | Free SEO Audit{% endblock %}
+{% block meta_description %}Get in touch with Digital Rank Experts in Johar Town, Lahore for a free SEO audit and digital marketing consultation.{% endblock %}
+
+{% block schema %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ContactPage",
+  "name": "Contact Digital Rank Experts",
+  "url": "{{ request.url }}"
+}
+</script>
+{% endblock %}
+
+{% block content %}
+{% include 'partials/breadcrumb.html' %}
+
+<section>
+  <div class="dre-container">
+    <div class="row gy-5">
+      <div class="col-lg-7">
+        {% include 'partials/contact_form.html' %}
+      </div>
+      <div class="col-lg-5">
+        <div class="dre-card mb-4">
+          <h5 class="mb-3">Business Information</h5>
+          <ul class="list-unstyled mb-0">
+            <li class="d-flex gap-3 mb-3"><i class="fa-solid fa-location-dot mt-1" style="color:var(--signal);"></i><span>Johar Town, Lahore, Punjab, Pakistan</span></li>
+            <li class="d-flex gap-3 mb-3"><i class="fa-solid fa-phone mt-1" style="color:var(--signal);"></i><a href="tel:+923297562092">+92 3297 562092</a></li>
+            <li class="d-flex gap-3 mb-3"><i class="fa-solid fa-envelope mt-1" style="color:var(--signal);"></i><a href="mailto:hello@digitalrankexperts.com">hello@digitalrankexperts.com</a></li>
+            <li class="d-flex gap-3"><i class="fa-brands fa-google mt-1" style="color:var(--signal);"></i><a href="https://maps.app.goo.gl/uuH6fPQYDqHBzFHE6" target="_blank" rel="noopener">View Google Business Profile</a></li>
+          </ul>
+        </div>
+        <div class="dre-card mb-4">
+          <h5 class="mb-3">Working Hours</h5>
+          <div class="d-flex justify-content-between mb-2"><span>Monday &ndash; Friday</span><span class="fw-semibold">9:00 AM &ndash; 7:00 PM</span></div>
+          <div class="d-flex justify-content-between mb-2"><span>Saturday</span><span class="fw-semibold">10:00 AM &ndash; 4:00 PM</span></div>
+          <div class="d-flex justify-content-between"><span>Sunday</span><span class="fw-semibold text-secondary">Closed</span></div>
+        </div>
+        <div class="rounded overflow-hidden" style="aspect-ratio:4/3; background:var(--indigo-tint); display:flex; align-items:center; justify-content:center;" role="img" aria-label="Map showing Johar Town, Lahore office location">
+          <span class="text-secondary"><i class="fa-solid fa-map-location-dot fa-2x"></i></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% include 'partials/faq.html' %}
+{% endblock %}

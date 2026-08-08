@@ -1,0 +1,89 @@
+<aside class="admin-sidebar p-3" aria-label="Admin navigation">
+
+  <!-- BRAND / LOGO -->
+  <a href="{{ url_for('admin.dashboard') }}"
+   class="admin-logo-wrap d-flex align-items-center justify-content-center text-decoration-none mb-4">
+    <img
+        src="{{ url_for('static', filename='images/logo.png') }}"
+        alt="Digital Rank Experts"
+        class="admin-logo"
+    >
+</a>
+
+  <nav class="nav flex-column gap-1">
+
+    <!-- Dashboard -->
+    <a class="nav-link {{ 'active' if request.endpoint == 'admin.dashboard' }}"
+       href="{{ url_for('admin.dashboard') }}">
+      <i class="fa-solid fa-gauge"></i>
+      Dashboard
+    </a>
+
+    <!-- Services -->
+    <a class="nav-link {{ 'active' if request.endpoint == 'main.services' }}"
+       href="{{ url_for('main.services') }}">
+      <i class="fa-solid fa-briefcase"></i>
+      Services
+    </a>
+
+    <!-- Portfolio -->
+    <a class="nav-link {{ 'active' if request.endpoint == 'main.portfolio' }}"
+       href="{{ url_for('main.portfolio') }}">
+      <i class="fa-solid fa-images"></i>
+      Portfolio
+    </a>
+
+    <!-- Blog -->
+    <a class="nav-link {{ 'active' if request.endpoint == 'main.blog' }}"
+       href="{{ url_for('main.blog') }}">
+      <i class="fa-solid fa-newspaper"></i>
+      Blog Posts
+    </a>
+
+    <!-- Messages -->
+    <a class="nav-link {{ 'active' if request.endpoint == 'admin.messages_list' }}"
+       href="{{ url_for('admin.messages_list') }}">
+      <i class="fa-solid fa-envelope-open-text"></i>
+      Contact Leads
+    </a>
+
+    <!-- Users -->
+    <a class="nav-link {{ 'active' if request.endpoint == 'admin_users' }}"
+       href="{{ url_for('admin.messages_list') }}">
+      <i class="fa-solid fa-users"></i>
+      Users
+    </a>
+
+    <!-- SEO -->
+    <a class="nav-link {{ 'active' if request.endpoint == 'admin.admin_seo' }}"
+       href="{{ url_for('admin.admin_seo') }}">
+      <i class="fa-solid fa-magnifying-glass-chart"></i>
+      SEO Tools
+    </a>
+
+    <!-- Settings -->
+    <a class="nav-link {{ 'active' if request.endpoint == 'admin.website_settings' }}"
+       href="{{ url_for('admin.website_settings') }}">
+      <i class="fa-solid fa-gear"></i>
+      Settings
+    </a>
+
+  </nav>
+
+  <hr style="border-color:#262E3D;">
+
+  <!-- Live Site -->
+  <a class="nav-link"
+     href="{{ url_for('main.index') }}">
+    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+    View Live Site
+  </a>
+
+  <!-- Logout -->
+  <a class="nav-link"
+     href="{{ url_for('auth.login') }}">
+    <i class="fa-solid fa-right-from-bracket"></i>
+    Log Out
+  </a>
+
+</aside>

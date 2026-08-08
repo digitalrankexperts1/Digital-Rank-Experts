@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% block title %}Digital Rank Experts | SEO &amp; Digital Marketing Agency in Lahore{% endblock %}
+{% block meta_description %}Rank higher, drive qualified organic traffic, and grow revenue with Digital Rank Experts — Lahore's data-driven SEO and digital marketing agency.{% endblock %}
+{% block og_title %}Digital Rank Experts | SEO &amp; Digital Marketing Agency{% endblock %}
+{% block og_description %}We move brands from page 3 to position #1 and keep them there. Transparent, results-first SEO in Lahore, Pakistan.{% endblock %}
+
+{% block schema %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Digital Rank Experts",
+  "url": "{{ request.url_root }}",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "{{ request.url_root.rstrip('/') }}{{ url_for('main.search') }}?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+{% endblock %}
+
+{% block content %}
+
+{% include 'partials/hero.html' %}
+{% include 'partials/brands.html' %}
+
+<section id="services">
+  <div class="dre-container">
+    <div class="section-kicker-row">
+      <div>
+        <p class="eyebrow mb-3">What We Do</p>
+        <h2 class="section-title">Every ranking factor Google cares about, handled under one roof.</h2>
+      </div>
+      <a href="{{ url_for('main.services') }}" class="btn btn-outline-signal">View All Services</a>
+    </div>
+    <div class="row g-4">
+      {% set home_services = [
+        ('fa-magnifying-glass-chart','Search Engine Optimization','Full-funnel SEO built on technical health, content, and authority.','seo'),
+        ('fa-location-dot','Local SEO &amp; GBP','Dominate the map pack and local search results in your city.','local-seo'),
+        ('fa-link','Link Building &amp; Guest Posting','Editorial-quality backlinks from real, relevant publications.','link-building'),
+        ('fa-bullhorn','Google &amp; Facebook Ads','Paid acquisition that complements organic, not competes with it.','google-ads'),
+        ('fa-code','Website &amp; Shopify Development','Fast, SEO-ready builds on WordPress, Shopify, and custom stacks.','website-development'),
+        ('fa-chart-line','E-commerce SEO','Category architecture and product pages built to convert search traffic.','ecommerce-seo')
+      ] %}
+      {% for icon, title, desc, slug in home_services %}
+      <div class="col-md-6 col-lg-4 reveal">
+        <a href="{{ url_for('main.service_detail', slug=slug) }}" class="text-decoration-none text-reset">
+          <div class="dre-card">
+            <div class="icon-tile"><i class="fa-solid {{ icon }}"></i></div>
+            <h5>{{ title|safe }}</h5>
+            <p class="text-secondary mb-2">{{ desc }}</p>
+            <span class="fw-semibold" style="color:var(--signal);">Learn more <i class="fa-solid fa-arrow-right-long ms-1"></i></span>
+          </div>
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% include 'partials/stats.html' %}
+{% include 'partials/why_choose_us.html' %}
+
+<section style="background:var(--surface);">
+  <div class="dre-container">
+    <div class="section-kicker-row">
+      <div>
+        <p class="eyebrow mb-3">Recent Work</p>
+        <h2 class="section-title">Real campaigns, real ranking movement.</h2>
+      </div>
+      <a href="{{ url_for('main.search') }}" class="btn btn-outline-signal">Full Portfolio</a>
+    </div>
+    <div class="row g-4">
+      {% for item in (featured_projects if featured_projects is defined else [
+        {'title':'Bazaar Bay Marketplace','category':'E-commerce SEO','slug':'bazaar-bay'},
+        {'title':'Northline Retail Rebrand','category':'Local SEO','slug':'northline-retail'},
+        {'title':'UrbanNest Interiors','category':'Web Development','slug':'urbannest'}
+      ]) %}
+      <div class="col-md-4 folio-col reveal">
+        <div class="folio-card">
+          <div style="background:var(--indigo-tint); aspect-ratio:4/3;"></div>
+          <div class="folio-overlay">
+            <div>
+              <span>{{ item.category }}</span>
+              <h5>{{ item.title }}</h5>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% include 'partials/testimonials.html' %}
+{% include 'partials/pricing.html' %}
+{% include 'partials/faq.html' %}
+{% include 'partials/cta.html' %}
+
+{% endblock %}

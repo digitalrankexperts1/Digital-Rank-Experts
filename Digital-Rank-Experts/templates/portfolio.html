@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% set page_title = "Our Portfolio" %}
+{% set page_eyebrow = "Case Studies" %}
+{% set breadcrumbs = [('Portfolio', none)] %}
+
+{% block title %}Portfolio | SEO &amp; Web Projects | Digital Rank Experts{% endblock %}
+{% block meta_description %}Browse SEO, e-commerce, and web development case studies delivered by Digital Rank Experts for brands across Pakistan.{% endblock %}
+
+{% block content %}
+{% include 'partials/breadcrumb.html' %}
+
+<section>
+  <div class="dre-container">
+    <div class="portfolio-filter d-flex flex-wrap gap-2 mb-5" role="tablist" aria-label="Filter portfolio by category">
+      <button class="btn active" data-filter="all" type="button">All Work</button>
+      <button class="btn" data-filter="SEO" type="button">SEO</button>
+      <button class="btn" data-filter="Local SEO" type="button">Local SEO</button>
+      <button class="btn" data-filter="Web Development" type="button">Web Development</button>
+      <button class="btn" data-filter="E-commerce" type="button">E-commerce</button>
+      <button class="btn" data-filter="Paid Ads" type="button">Paid Ads</button>
+    </div>
+
+    <div class="row g-4">
+      {% set projects = projects if projects is defined else [
+        {'title':'Bazaar Bay Marketplace','category':'E-commerce','slug':'bazaar-bay','result':'+220% organic revenue'},
+        {'title':'Northline Retail Rebrand','category':'Local SEO','slug':'northline-retail','result':'#1 map pack, 4 cities'},
+        {'title':'UrbanNest Interiors','category':'Web Development','slug':'urbannest','result':'1.2s load time'},
+        {'title':'Foodex Delivery App','category':'SEO','slug':'foodex','result':'3.4x organic sessions'},
+        {'title':'Karez Textiles Exports','category':'SEO','slug':'karez-textiles','result':'Top 3 for 40 keywords'},
+        {'title':'Skyline Motors','category':'Paid Ads','slug':'skyline-motors','result':'2.1x ROAS'}
+      ] %}
+      {% for p in projects %}
+      <div class="col-md-6 col-lg-4 folio-col reveal" data-category="{{ p.category }}">
+        <a href="{{ url_for('main.search') }}#{{ p.slug }}" class="text-decoration-none text-reset">
+          <div class="folio-card mb-3">
+            <div style="background:var(--indigo-tint); aspect-ratio:4/3;"></div>
+            <div class="folio-overlay">
+              <div>
+                <span>{{ p.category }}</span>
+                <h5>{{ p.title }}</h5>
+              </div>
+            </div>
+          </div>
+        </a>
+        <div class="d-flex justify-content-between align-items-center">
+          <h6 class="mb-0">{{ p.title }}</h6>
+          <span class="rank-chip up">{{ p.result }}</span>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% include 'partials/stats.html' %}
+{% include 'partials/testimonials.html' %}
+{% include 'partials/cta.html' %}
+{% endblock %}

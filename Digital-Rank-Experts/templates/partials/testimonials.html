@@ -1,0 +1,36 @@
+<section id="testimonials" style="background:var(--surface);">
+  <div class="dre-container">
+    <div class="section-kicker-row">
+      <div>
+        <p class="eyebrow mb-3">Client Results</p>
+        <h2 class="section-title">Numbers convince search engines. Words convince people.</h2>
+      </div>
+      <div class="d-flex gap-2">
+        <span class="rank-chip up"><i class="fa-solid fa-star"></i> 4.9 average rating</span>
+      </div>
+    </div>
+
+    {% set reviews = testimonials if testimonials is defined else [
+      {'name':'Ayesha Raza','role':'Founder, Bazaar Bay','quote':'Our organic orders doubled in five months. The monthly calls actually explain what changed and why, instead of a PDF nobody reads.','initials':'AR'},
+      {'name':'Bilal Farooq','role':'Marketing Lead, Northline Retail','quote':'First agency that ships fixes instead of just flagging them. Our Core Web Vitals went from failing to passing within six weeks.','initials':'BF'},
+      {'name':'Sara Khan','role':'Owner, UrbanNest Interiors','quote':'We went from invisible on local search to the top three GBP results in our category. Booked-out for the first time.','initials':'SK'}
+    ] %}
+    <div class="row g-4">
+      {% for r in reviews %}
+      <div class="col-md-4 reveal">
+        <div class="testi-card h-100" itemscope itemtype="https://schema.org/Review">
+          <div class="stars mb-3" aria-label="5 out of 5 stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+          <p class="mb-4" itemprop="reviewBody">&ldquo;{{ r.quote }}&rdquo;</p>
+          <div class="d-flex align-items-center gap-3">
+            <div class="avatar-ring">{{ r.initials }}</div>
+            <div>
+              <div class="fw-semibold" itemprop="author">{{ r.name }}</div>
+              <div class="small text-secondary">{{ r.role }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>

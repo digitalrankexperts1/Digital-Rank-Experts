@@ -1,0 +1,70 @@
+{% extends "admin/base.html" %}
+{% set admin_page_title = "SEO Tools" %}
+{% block title %}SEO Tools | Admin | Digital Rank Experts{% endblock %}
+
+{% block content %}
+<div class="row g-4 mb-4">
+  <div class="col-md-4">
+    <div class="kpi-card">
+      <span class="text-secondary small">Indexed Pages</span>
+      <div class="num">142</div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="kpi-card">
+      <span class="text-secondary small">Pages Missing Meta</span>
+      <div class="num" style="color:var(--amber);">6</div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="kpi-card">
+      <span class="text-secondary small">Avg. Lighthouse SEO Score</span>
+      <div class="num" style="color:var(--signal);">96</div>
+    </div>
+  </div>
+</div>
+
+<div class="kpi-card">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h6 class="mb-0">Page-Level Meta Management</h6>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-dre align-middle mb-0">
+      <thead><tr><th>URL</th><th>Title Length</th><th>Meta Description</th><th>Canonical</th><th class="text-end">Actions</th></tr></thead>
+      <tbody>
+        {% for row in (seo_rows if seo_rows is defined else [
+          ('/', '58 chars', 'live'), ('/services', '52 chars', 'live'),
+          ('/services/seo', '61 chars', 'live'), ('/blog/local-seo-ranking-factors-2026', '49 chars', 'draft')
+        ]) %}
+        <tr>
+          <td><code>{{ row[0] }}</code></td>
+          <td>{{ row[1] }}</td>
+          <td><span class="status-badge {{ row[2] }}">{{ 'Set' if row[2]=='live' else 'Missing' }}</span></td>
+          <td><i class="fa-solid fa-circle-check" style="color:var(--signal);"></i></td>
+          <td class="text-end"><button class="btn btn-sm btn-outline-signal">Edit Meta</button></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="row g-4 mt-1">
+  <div class="col-md-6">
+    <div class="kpi-card h-100">
+      <h6 class="mb-3">Sitemap &amp; Robots</h6>
+      <div class="d-flex justify-content-between mb-2"><span class="text-secondary">/sitemap.xml</span><span class="status-badge live">Live</span></div>
+      <div class="d-flex justify-content-between mb-3"><span class="text-secondary">/robots.txt</span><span class="status-badge live">Live</span></div>
+      <button class="btn btn-outline-signal btn-sm">Regenerate Sitemap</button>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="kpi-card h-100">
+      <h6 class="mb-3">Schema Markup Coverage</h6>
+      <div class="d-flex justify-content-between mb-2"><span class="text-secondary">Organization</span><span class="status-badge live">Active</span></div>
+      <div class="d-flex justify-content-between mb-2"><span class="text-secondary">FAQPage</span><span class="status-badge live">Active</span></div>
+      <div class="d-flex justify-content-between"><span class="text-secondary">Article</span><span class="status-badge live">Active</span></div>
+    </div>
+  </div>
+</div>
+{% endblock %}

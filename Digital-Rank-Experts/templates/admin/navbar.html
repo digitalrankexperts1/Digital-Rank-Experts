@@ -1,0 +1,74 @@
+<div class="admin-topbar d-flex align-items-center justify-content-between">
+
+  <!-- LEFT SIDE -->
+  <div class="d-flex align-items-center gap-3">
+
+    <button class="btn btn-sm btn-outline-signal d-lg-none"
+            type="button"
+            data-sidebar-toggle
+            aria-label="Toggle menu">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+
+    <!-- LOGO -->
+    <a href="{{ url_for('main.home') }}" class="d-flex align-items-center text-decoration-none">
+      <img
+        src="{{ url_for('static', filename='images/logo.png') }}"
+        alt="Digital Rank Experts"
+        style="height:42px; width:auto; object-fit:contain;"
+      >
+    </a>
+
+    <!-- PAGE TITLE -->
+    <h1 class="h5 mb-0 ms-2">
+      {% block admin_page_title %}
+        {{ admin_page_title if admin_page_title is defined else 'Dashboard' }}
+      {% endblock %}
+    </h1>
+
+  </div>
+
+
+  <!-- RIGHT SIDE -->
+  <div class="d-flex align-items-center gap-3">
+
+    <!-- Notifications -->
+    <button class="btn btn-sm btn-outline-signal position-relative"
+            type="button"
+            aria-label="Notifications">
+
+      <i class="fa-regular fa-bell"></i>
+
+      <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill"
+            style="background:var(--signal);font-size:.6rem;">
+        3
+      </span>
+
+    </button>
+
+
+    <!-- User -->
+    <div class="d-flex align-items-center gap-2">
+
+      <div class="avatar-ring"
+           style="width:36px;height:36px;font-size:.85rem;">
+        {{ (current_user.full_name[0]
+            if current_user is defined
+            and current_user.is_authenticated
+            and current_user.full_name
+            else 'S') }}
+      </div>
+
+      <span class="small fw-semibold d-none d-sm-inline">
+        {{ current_user.full_name
+           if current_user is defined
+           and current_user.is_authenticated
+           and current_user.full_name
+           else 'Sohail Ahmad' }}
+      </span>
+
+    </div>
+
+  </div>
+
+</div>

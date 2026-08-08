@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}Page Not Found (404) | Digital Rank Experts{% endblock %}
+{% block meta_robots %}noindex, nofollow{% endblock %}
+
+{% block content %}
+<section class="error-shell">
+  <div class="dre-container text-center">
+    <p class="error-code mb-3">ERROR 404 &middot; PAGE NOT RANKED</p>
+    <h1 class="mb-3" style="font-size:clamp(2.4rem,6vw,4rem);">This page couldn't be found &mdash; even by us.</h1>
+    <p class="text-secondary mx-auto mb-4" style="max-width:52ch;">The page you're looking for may have moved, been renamed, or never existed. Let's get you back to solid ranking ground.</p>
+    <div class="d-flex justify-content-center gap-3 flex-wrap">
+      <a href="{{ url_for('main.index') }}" class="btn btn-signal btn-lg">Back to Homepage</a>
+      <a href="{{ url_for('main.search') }}" class="btn btn-outline-signal btn-lg">Search the Site</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

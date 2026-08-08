@@ -1,0 +1,43 @@
+{% extends "admin/base.html" %}
+{% set admin_page_title = "Contact Leads" %}
+{% block title %}Contact Leads | Admin | Digital Rank Experts{% endblock %}
+
+{% block content %}
+<div class="kpi-card">
+  <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+    <h6 class="mb-0">Inbound Leads</h6>
+    <div class="d-flex gap-2">
+      <select class="form-select form-select-sm" style="width:auto;" aria-label="Filter leads by status">
+        <option>All Statuses</option><option>New</option><option>Contacted</option><option>Closed</option>
+      </select>
+    </div>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-dre align-middle mb-0">
+      <thead><tr><th>Name</th><th>Email</th><th>Service</th><th>Message</th><th>Received</th><th>Status</th><th class="text-end">Actions</th></tr></thead>
+      <tbody>
+        {% for lead in (leads if leads is defined else [
+          ('Ali Hassan','ali@brightretail.pk','SEO','Looking for a full SEO audit for our retail site.','2 hours ago','live'),
+          ('Zainab Malik','zainab@nestinteriors.pk','Website Development','Need a new Shopify build within 6 weeks.','Yesterday','draft'),
+          ('Faisal Ahmed','faisal@skylinemotors.pk','Local SEO','Interested in local pack visibility across 3 cities.','2 days ago','paused')
+        ]) %}
+        <tr>
+          <td class="fw-semibold">{{ lead[0] }}</td>
+          <td><a href="mailto:{{ lead[1] }}">{{ lead[1] }}</a></td>
+          <td>{{ lead[2] }}</td>
+          <td class="text-secondary text-truncate d-inline-block" style="max-width:220px;">{{ lead[3] }}</td>
+          <td class="text-secondary">{{ lead[4] }}</td>
+          <td><span class="status-badge {{ lead[5] }}">{{ 'New' if lead[5]=='live' else ('Contacted' if lead[5]=='draft' else 'Closed') }}</span></td>
+          <td class="text-end">
+            <button class="btn btn-sm btn-outline-signal" type="button" aria-label="View lead from {{ lead[0] }}"><i class="fa-solid fa-eye"></i></button>
+            <button class="btn btn-sm btn-outline-signal" type="button" aria-label="Delete lead from {{ lead[0] }}"><i class="fa-solid fa-trash"></i></button>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% set pagination_endpoint = 'admin.messages_list' %}
+  {% include 'partials/pagination.html' %}
+</div>
+{% endblock %}

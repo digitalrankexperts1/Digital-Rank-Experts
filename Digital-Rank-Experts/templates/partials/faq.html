@@ -1,0 +1,38 @@
+<section id="faq" itemscope itemtype="https://schema.org/FAQPage">
+  <div class="dre-container">
+    <div class="row gy-4">
+      <div class="col-lg-4">
+        <p class="eyebrow mb-3">FAQ</p>
+        <h2 class="section-title">Questions we hear on almost every first call.</h2>
+        <p class="text-secondary">Don't see yours? <a href="{{ url_for('main.contact') }}">Ask us directly</a>.</p>
+      </div>
+      <div class="col-lg-8">
+        {% set faqs = faq_items if faq_items is defined else [
+          {'q':'How long until we see ranking movement?','a':'Most clients see measurable movement on target keywords within 60–90 days, with compounding gains from month four onward as technical fixes and content mature.'},
+          {'q':'Do you guarantee #1 rankings?','a':'No ethical agency can guarantee a specific position, since Google\'s algorithm is outside anyone\'s control. We guarantee the work, the reporting, and a strategy built on data.'},
+          {'q':'Is there a minimum contract length?','a':'We ask for a 3-month minimum to let the work show results, then move to month-to-month. Most clients stay for years, not because they\'re locked in.'},
+          {'q':'Do you work with e-commerce and Shopify stores?','a':'Yes — e-commerce SEO and Shopify development are core services, from technical audits to category page architecture and conversion-focused product pages.'},
+          {'q':'Can you manage our Google and Facebook Ads too?','a':'Yes, our paid media team runs Google Ads and Facebook Ads campaigns alongside organic SEO for a full-funnel approach.'}
+        ] %}
+        <div class="accordion dre-accordion" id="faqAccordion">
+          {% for item in faqs %}
+          <div class="accordion-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <h3 class="accordion-header" id="faqHeading{{ loop.index }}">
+              <button class="accordion-button {{ 'collapsed' if not loop.first }}" type="button"
+                      data-bs-toggle="collapse" data-bs-target="#faqCollapse{{ loop.index }}"
+                      aria-expanded="{{ 'true' if loop.first else 'false' }}" aria-controls="faqCollapse{{ loop.index }}">
+                <span itemprop="name">{{ item.q }}</span>
+              </button>
+            </h3>
+            <div id="faqCollapse{{ loop.index }}" class="accordion-collapse collapse {{ 'show' if loop.first }}"
+                 aria-labelledby="faqHeading{{ loop.index }}" data-bs-parent="#faqAccordion"
+                 itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+              <div class="accordion-body text-secondary" itemprop="text">{{ item.a }}</div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

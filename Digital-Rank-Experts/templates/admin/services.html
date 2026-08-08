@@ -1,0 +1,61 @@
+{% extends "admin/base.html" %}
+{% set admin_page_title = "Services" %}
+{% block title %}Manage Services | Admin | Digital Rank Experts{% endblock %}
+
+{% block content %}
+<div class="kpi-card">
+  <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+    <h6 class="mb-0">All Services</h6>
+    <button class="btn btn-signal btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#serviceModal">
+      <i class="fa-solid fa-plus me-1"></i>Add Service
+    </button>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-dre align-middle mb-0">
+      <thead><tr><th>Service</th><th>Slug</th><th>Category</th><th>Status</th><th class="text-end">Actions</th></tr></thead>
+      <tbody>
+        {% for s in (services if services is defined else [
+          ('Search Engine Optimization','seo','Organic','live'),('Local SEO','local-seo','Organic','live'),
+          ('Google Ads','google-ads','Paid','live'),('Shopify Development','shopify-development','Development','draft')
+        ]) %}
+        <tr>
+          <td class="fw-semibold">{{ s[0] }}</td>
+          <td class="text-secondary"><code>/{{ s[1] }}</code></td>
+          <td>{{ s[2] }}</td>
+          <td><span class="status-badge {{ s[3] }}">{{ s[3]|capitalize }}</span></td>
+          <td class="text-end">
+            <button class="btn btn-sm btn-outline-signal" type="button" data-bs-toggle="modal" data-bs-target="#serviceModal"><i class="fa-solid fa-pen"></i></button>
+            <button class="btn btn-sm btn-outline-signal" type="button" aria-label="Delete {{ s[0] }}"><i class="fa-solid fa-trash"></i></button>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="modal fade" id="serviceModal" tabindex="-1" aria-labelledby="serviceModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <form class="modal-content" method="post" action="{{ url_for('admin.services') }}">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      <div class="modal-header">
+        <h5 class="modal-title" id="serviceModalLabel">Add / Edit Service</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3"><label for="svcName">Service Name</label><input type="text" class="form-control" id="svcName" name="name" required></div>
+        <div class="mb-3"><label for="svcSlug">URL Slug</label><input type="text" class="form-control" id="svcSlug" name="slug" required></div>
+        <div class="mb-3"><label for="svcDesc">Short Description</label><textarea class="form-control" id="svcDesc" name="description" rows="3"></textarea></div>
+        <div class="mb-3">
+          <label for="svcStatus">Status</label>
+          <select class="form-select" id="svcStatus" name="status"><option value="live">Live</option><option value="draft">Draft</option></select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-signal" data-bs-dismiss="modal">Cancel</button>
+        <button type="submit" class="btn btn-signal">Save Service</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

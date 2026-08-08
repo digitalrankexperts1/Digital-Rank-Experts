@@ -1,0 +1,27 @@
+<section id="team">
+  <div class="dre-container">
+    <div class="section-kicker-row">
+      <div>
+        <p class="eyebrow mb-3">The People</p>
+        <h2 class="section-title">A small senior team, not a rotating cast of juniors.</h2>
+      </div>
+    </div>
+    <div class="row g-4">
+      {% set members = team_members if team_members is defined else [
+        {'name':'Sohail Ahmad','role':'Founder & Head of Strategy','initials':'SA'},
+        {'name':'Hina Malik','role':'Technical SEO Lead','initials':'HM'},
+        {'name':'Usman Tariq','role':'Paid Media Manager','initials':'UT'},
+        {'name':'Mahnoor Sheikh','role':'Content & Outreach Lead','initials':'MS'}
+      ] %}
+      {% for m in members %}
+      <div class="col-6 col-lg-3 reveal">
+        <div class="dre-card text-center">
+          <div class="avatar-ring mx-auto mb-3" style="width:64px;height:64px;font-size:1.1rem;">{{ m.initials }}</div>
+          <h6 class="mb-1">{{ m.name }}</h6>
+          <p class="small text-secondary mb-0">{{ m.role }}</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>

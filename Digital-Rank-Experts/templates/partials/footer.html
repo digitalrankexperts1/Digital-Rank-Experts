@@ -1,0 +1,63 @@
+<footer class="dre-footer pt-5" role="contentinfo">
+  <div class="dre-container">
+    <div class="row gy-4 pb-5">
+      <div class="col-lg-4">
+        <div class="footer-brand mb-3">Digital<span style="color:var(--signal-2)">Rank</span>Experts</div>
+        <p class="mb-3">Digital Rank Experts is a Lahore-based SEO and digital growth agency helping brands move up the search results that matter and stay there.</p>
+        <address class="mb-3 fst-normal">
+          <div class="mb-1"><i class="fa-solid fa-location-dot me-2" style="color:var(--signal-2)"></i>Johar Town, Lahore, Pakistan</div>
+          <div class="mb-1"><i class="fa-solid fa-phone me-2" style="color:var(--signal-2)"></i><a href="tel:+923297562092">+92 3297 562092</a></div>
+          <div><i class="fa-solid fa-envelope me-2" style="color:var(--signal-2)"></i><a href="mailto:digitalrankexperts@gmail.com">digitalrankexperts@gmail.com</a></div>
+        </address>
+        <div class="d-flex gap-2">
+          <a href="#" aria-label="Facebook" class="btn btn-sm btn-outline-light rounded-circle"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" aria-label="LinkedIn" class="btn btn-sm btn-outline-light rounded-circle"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a href="#" aria-label="Instagram" class="btn btn-sm btn-outline-light rounded-circle"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://maps.app.goo.gl/uuH6fPQYDqHBzFHE6" aria-label="Google Business Profile" class="btn btn-sm btn-outline-light rounded-circle"><i class="fa-brands fa-google"></i></a>
+        </div>
+      </div>
+
+      <div class="col-6 col-lg-2">
+        <h6>Company</h6>
+        <ul class="list-unstyled">
+          <li class="mb-2"><a href="{{ url_for('main.about') }}">About Us</a></li>
+          <li class="mb-2"><a href="{{ url_for('main.search') }}">Portfolio</a></li>
+          <li class="mb-2"><a href="{{ url_for('main.blog') }}">Blog</a></li>
+          <li class="mb-2"><a href="{{ url_for('main.contact') }}">Contact</a></li>
+          <li class="mb-2"><a href="{{ url_for('auth.login') }}">Client Login</a></li>
+        </ul>
+      </div>
+
+      <div class="col-6 col-lg-3">
+        <h6>Services</h6>
+        <ul class="list-unstyled">
+          <li class="mb-2"><a href="{{ url_for('main.service_detail', slug='seo') }}">SEO</a></li>
+          <li class="mb-2"><a href="{{ url_for('main.service_detail', slug='local-seo') }}">Local SEO &amp; GBP</a></li>
+          <li class="mb-2"><a href="{{ url_for('main.service_detail', slug='link-building') }}">Link Building</a></li>
+          <li class="mb-2"><a href="{{ url_for('main.service_detail', slug='google-ads') }}">Google &amp; Facebook Ads</a></li>
+          <li class="mb-2"><a href="{{ url_for('main.service_detail', slug='website-development') }}">Website &amp; Shopify Dev</a></li>
+        </ul>
+      </div>
+
+      <div class="col-lg-3">
+        <h6>Stay Ranked</h6>
+        <p class="small mb-3">Monthly SEO insights, no fluff. Unsubscribe anytime.</p>
+        <form action="{{ url_for('newsletter') if 'newsletter' in (url_map_endpoints|default([])) else '#' }}" method="post" class="d-flex gap-2" novalidate>
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <label for="footerEmail" class="visually-hidden">Email address</label>
+          <input type="email" id="footerEmail" name="email" class="form-control form-control-sm bg-transparent text-white" placeholder="you@company.com" required>
+          <button class="btn btn-sm btn-signal flex-shrink-0" type="submit">Join</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="footer-bottom d-flex flex-wrap justify-content-between align-items-center gap-2">
+      <span>&copy; {{ current_year if current_year is defined else 2026 }} Digital Rank Experts. All rights reserved. Owner: Sohail Ahmad.</span>
+      <div class="d-flex gap-3">
+        <a href="#" class="small">Privacy Policy</a>
+        <a href="#" class="small">Terms of Service</a>
+        <a href="#" class="small">Sitemap</a>
+      </div>
+    </div>
+  </div>
+</footer>

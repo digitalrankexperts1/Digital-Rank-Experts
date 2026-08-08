@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Too Many Requests | Digital Rank Experts{% endblock %}
+
+{% block content %}
+<section class="dre-container py-5 text-center">
+    <p class="eyebrow mb-3">ERROR 429</p>
+    <h1 class="section-title">Too many requests</h1>
+    <p class="text-secondary mt-3">
+        Please wait a moment and try again.
+    </p>
+    <a href="{{ url_for('main.index') }}" class="btn btn-dark mt-3">
+        Back to Homepage
+    </a>
+</section>
+{% endblock %}

@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  {# ===================== SEO: TITLE & META ===================== #}
+  <title>{% block title %}Digital Rank Experts | SEO &amp; Digital Marketing Agency in Lahore{% endblock %}</title>
+  {% block meta %}
+  <meta name="description" content="{% block meta_description %}Digital Rank Experts is a Lahore-based SEO and digital marketing agency helping businesses rank higher, drive qualified traffic, and grow revenue.{% endblock %}">
+  <meta name="keywords" content="{% block meta_keywords %}SEO agency Lahore, digital marketing Pakistan, local SEO, link building, technical SEO, website development{% endblock %}">
+  <meta name="robots" content="{% block meta_robots %}index, follow{% endblock %}">
+  <meta name="author" content="Digital Rank Experts">
+  <link rel="canonical" href="{% block canonical %}{{ request.url_root.rstrip('/') + request.path }}{% endblock %}">
+
+  {# ===================== OPEN GRAPH ===================== #}
+  <meta property="og:type" content="{% block og_type %}website{% endblock %}">
+  <meta property="og:site_name" content="Digital Rank Experts">
+  <meta property="og:title" content="{% block og_title %}Digital Rank Experts | SEO &amp; Digital Marketing Agency in Lahore{% endblock %}">
+  <meta property="og:description" content="{% block og_description %}We help brands rank higher on Google and convert that traffic into revenue.{% endblock %}">
+  <meta property="og:url" content="{{ request.url_root.rstrip('/') + request.path }}">
+  <meta property="og:image" content="{% block og_image %}{{ url_for('static', filename='images/og-cover.jpg') }}{% endblock %}">
+  <meta property="og:locale" content="en_PK">
+
+  {# ===================== TWITTER CARD ===================== #}
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{% block twitter_title %}Digital Rank Experts{% endblock %}">
+  <meta name="twitter:description" content="{% block twitter_description %}Lahore-based SEO &amp; digital marketing agency.{% endblock %}">
+  <meta name="twitter:image" content="{% block twitter_image %}{{ url_for('static', filename='images/og-cover.jpg') }}{% endblock %}">
+  {% endblock %}
+
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}">
+
+  {# ===================== JSON-LD: ORGANIZATION + LOCAL BUSINESS (site-wide) ===================== #}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Digital Rank Experts",
+    "image": "{{ url_for('static', filename='images/og-cover.jpg') }}",
+    "url": "{{ request.url_root }}",
+    "telephone": "+92-3297-562092",
+    "priceRange": "$$",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Johar Town",
+      "addressLocality": "Lahore",
+      "addressRegion": "Punjab",
+      "addressCountry": "PK"
+    },
+    "founder": {
+      "@type": "Person",
+      "name": "Sohail Ahmad"
+    },
+    "sameAs": ["https://maps.app.goo.gl/uuH6fPQYDqHBzFHE6"]
+  }
+  </script>
+  {% block schema %}{% endblock %}
+
+  {% block styles %}
+  {% include 'partials/styles.html' %}
+  {% endblock %}
+</head>
+<body class="{% block body_class %}{% endblock %}">
+
+  <a class="visually-hidden-focusable btn btn-signal position-absolute top-0 start-0 m-2" style="z-index:2000;" href="#main-content">Skip to main content</a>
+
+  {% block navbar %}
+  {% include 'partials/navbar.html' %}
+  {% endblock %}
+
+  <main id="main-content">
+    {% block content %}{% endblock %}
+  </main>
+
+  {% block footer %}
+  {% include 'partials/footer.html' %}
+  {% endblock %}
+
+  {% block scripts %}
+  {% include 'partials/scripts.html' %}
+  {% endblock %}
+  {% block extra_scripts %}{% endblock %}
+</body>
+</html>

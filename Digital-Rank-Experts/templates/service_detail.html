@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% set service = service if service is defined else {'name':'Search Engine Optimization','slug':'seo','summary':'Full-funnel organic strategy that compounds over time.'} %}
+{% set page_title = service.name %}
+{% set page_eyebrow = "Service" %}
+{% set breadcrumbs = [('Services', url_for('services')), (service.name, none)] %}
+
+{% block title %}{{ service.name }} Services in Lahore | Digital Rank Experts{% endblock %}
+{% block meta_description %}{{ service.summary if service.summary else service.name + ' services from Digital Rank Experts, a Lahore-based SEO and digital marketing agency.' }}{% endblock %}
+
+{% block schema %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": "{{ service.name }}",
+  "provider": {"@type": "Organization", "name": "Digital Rank Experts", "url": "{{ request.url_root }}"},
+  "areaServed": {"@type": "Country", "name": "Pakistan"},
+  "url": "{{ request.url }}"
+}
+</script>
+{% endblock %}
+
+{% block content %}
+{% include 'partials/breadcrumb.html' %}
+
+<section>
+  <div class="dre-container">
+    <div class="row gy-5">
+      <div class="col-lg-8">
+        <h2 class="mb-3">What's included in {{ service.name }}</h2>
+        <p class="text-secondary">{{ service.summary if service.summary else 'A structured, transparent engagement built around your specific market and competitors, not a templated checklist.' }}</p>
+
+        <div class="row g-3 my-3">
+          {% set deliverables = service.deliverables if service is defined and service.deliverables is defined else [
+            'Full technical and competitive audit', 'Keyword and search-intent mapping', 'On-page and content optimization',
+            'Monthly authority building', 'Live rank tracking dashboard', 'Monthly strategy call with your strategist'
+          ] %}
+          {% for d in deliverables %}
+          <div class="col-md-6 d-flex gap-3">
+            <i class="fa-solid fa-circle-check mt-1" style="color:var(--signal);"></i>
+            <span>{{ d }}</span>
+          </div>
+          {% endfor %}
+        </div>
+
+        <h3 class="mt-5 mb-3">Our Process</h3>
+        <div class="row g-4">
+          {% set steps = [
+            ('Audit','We map your current rankings, technical health, and competitor gaps.'),
+            ('Strategy','A prioritized roadmap sized to your budget and timeline.'),
+            ('Execution','On-page fixes, content, and authority building shipped on schedule.'),
+            ('Reporting','A live dashboard plus a monthly call that explains the "why.".')
+          ] %}
+          {% for name, desc in steps %}
+          <div class="col-sm-6">
+            <div class="dre-card">
+              <span class="rank-chip flat mb-3">{{ '%02d'|format(loop.index) }}</span>
+              <h6>{{ name }}</h6>
+              <p class="text-secondary small mb-0">{{ desc }}</p>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="col-lg-4">
+        <div class="dre-card mb-4">
+          <h5 class="mb-3">Ready to get started?</h5>
+          <p class="text-secondary small">Get a free audit specific to {{ service.name|lower }} for your website.</p>
+          <a href="{{ url_for('main.contact') }}" class="btn btn-signal w-100">Request Free Audit</a>
+        </div>
+        <div class="dre-card">
+          <h6 class="text-uppercase" style="font-family:var(--font-mono);font-size:.8rem;letter-spacing:.06em;">Related Services</h6>
+          <ul class="list-unstyled mb-0 mt-2">
+            {% for rel in (related_services if related_services is defined else [('Technical SEO','technical-seo'),('Link Building','link-building'),('Local SEO','local-seo')]) %}
+            <li class="mb-2"><a href="{{ url_for('service_detail', slug=rel[1]) }}"><i class="fa-solid fa-arrow-right-long me-2 small"></i>{{ rel[0] }}</a></li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% include 'partials/testimonials.html' %}
+{% include 'partials/faq.html' %}
+{% include 'partials/cta.html' %}
+{% endblock %}

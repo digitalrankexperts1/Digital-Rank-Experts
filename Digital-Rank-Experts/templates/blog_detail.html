@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% set post = post if post is defined else {
+  'title':'12 Local SEO Ranking Factors That Actually Move the Needle in 2026',
+  'category':'Local SEO','date':'July 28, 2026','author':'Hina Malik','read_time':'7 min read'
+} %}
+{% set page_title = post.title %}
+{% set page_eyebrow = post.category %}
+{% set breadcrumbs = [('Blog', url_for('main.blog')), (post.title, none)] %}
+
+{% block title %}{{ post.title }} | Digital Rank Experts Blog{% endblock %}
+{% block meta_description %}{{ post.excerpt if post is defined and post.excerpt is defined else post.title }}{% endblock %}
+{% block og_type %}article{% endblock %}
+
+{% block schema %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "{{ post.title }}",
+  "author": {"@type": "Person", "name": "{{ post.author }}"},
+  "publisher": {"@type": "Organization", "name": "Digital Rank Experts"},
+  "datePublished": "{{ post.date }}",
+  "mainEntityOfPage": "{{ request.url }}"
+}
+</script>
+{% endblock %}
+
+{% block content %}
+{% include 'partials/breadcrumb.html' %}
+
+<section>
+  <div class="dre-container">
+    <div class="row gy-5">
+      <div class="col-lg-8">
+        <div class="d-flex align-items-center gap-3 mb-4">
+          <div class="avatar-ring">{{ post.author[0] if post.author is defined else 'D' }}</div>
+          <div>
+            <div class="fw-semibold">{{ post.author if post.author is defined else 'Digital Rank Experts' }}</div>
+            <div class="small text-secondary">{{ post.date if post.date is defined else '' }} &middot; {{ post.read_time if post.read_time is defined else '6 min read' }}</div>
+          </div>
+        </div>
+
+        <div style="background:var(--indigo-tint); border-radius:var(--radius-md); aspect-ratio:16/8;" class="mb-4"></div>
+
+        <article>
+          <p class="lead">Local search results are decided by a narrower, more mechanical set of signals than most "ultimate guides" suggest. Here's the shortlist we actually optimize, in the order we tackle it for new clients.</p>
+          <h2 class="h4 mt-4">1. Google Business Profile completeness</h2>
+          <p class="text-secondary">Category accuracy, service area configuration, and posting cadence still correlate strongly with map pack visibility, more than most business owners expect.</p>
+          <h2 class="h4 mt-4">2. Review velocity and response rate</h2>
+          <p class="text-secondary">Consistent, recent reviews with owner responses outperform a large but stagnant review count.</p>
+          <h2 class="h4 mt-4">3. NAP consistency across citations</h2>
+          <p class="text-secondary">Name, address, and phone number mismatches across directories quietly erode local trust signals — an audit almost always finds a handful.</p>
+          <blockquote class="border-start ps-3 my-4" style="border-color:var(--signal) !important; border-width:3px !important;">
+            <p class="mb-0 fst-italic">"Local SEO rewards operational discipline more than clever tactics."</p>
+          </blockquote>
+          <h2 class="h4 mt-4">4. On-site location and service-area pages</h2>
+          <p class="text-secondary">Dedicated, well-structured pages per service area continue to outperform a single generic "areas we serve" list.</p>
+          <p class="text-secondary">Want the full 12-factor checklist applied to your business? <a href="{{ url_for('main.contact') }}">Request a free local SEO audit</a>.</p>
+        </article>
+
+        <div class="d-flex flex-wrap gap-2 mt-4">
+          {% for tag in ['Local SEO','GBP','Citations','Reviews'] %}
+          <a href="{{ url_for('main.blog', tag=tag) }}" class="tag-pill">{{ tag }}</a>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="col-lg-4">
+        {% include 'partials/sidebar.html' %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--surface);">
+  <div class="dre-container">
+    <h3 class="mb-4">Related Articles</h3>
+    <div class="row g-4">
+      {% for rp in (related_posts if related_posts is defined else [
+        {'title':'Technical SEO Checklist for Shopify Stores','slug':'technical-seo-shopify-checklist','category':'Web Development'},
+        {'title':'Core Web Vitals in 2026','slug':'core-web-vitals-2026','category':'SEO Strategy'},
+        {'title':'Guest Posting in 2026: What Still Works','slug':'guest-posting-2026','category':'Content Marketing'}
+      ]) %}
+      <div class="col-md-4 reveal">
+        <article class="blog-card h-100">
+          <a href="{{ url_for('main.blog_detail', slug=rp.slug) }}"><div style="background:var(--indigo-tint); aspect-ratio:16/10;"></div></a>
+          <div class="p-3">
+            <span class="tag-pill mb-2 d-inline-block">{{ rp.category }}</span>
+            <h6><a href="{{ url_for('main.blog_detail', slug=rp.slug) }}" class="text-reset text-decoration-none">{{ rp.title }}</a></h6>
+          </div>
+        </article>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% include 'partials/cta.html' %}
+{% endblock %}

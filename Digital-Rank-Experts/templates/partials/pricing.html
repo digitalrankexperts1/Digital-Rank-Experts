@@ -1,0 +1,32 @@
+<section id="pricing">
+  <div class="dre-container">
+    <div class="section-kicker-row">
+      <div>
+        <p class="eyebrow mb-3">Retainers</p>
+        <h2 class="section-title">Straightforward plans. Cancel anytime after month one.</h2>
+      </div>
+    </div>
+    <div class="row g-4">
+      {% set plans = pricing_plans if pricing_plans is defined else [
+        {'name':'Starter','price':'Custom Quote','period':'/mo','desc':'For local businesses ranking in one city.','features':['Local SEO & GBP optimization','15 target keywords','Monthly reporting call','On-page fixes'],'featured':false},
+        {'name':'Growth','price':'Custom Quote','period':'/mo','desc':'For businesses scaling organic traffic nationally.','features':['Everything in Starter','40 target keywords','Link building (8/mo)','Content strategy & 4 articles','Bi-weekly reporting'],'featured':true},
+        {'name':'Enterprise','price':'Custom Quote','period':'','desc':'For multi-location or e-commerce brands.','features':['Everything in Growth','Unlimited keywords','Dedicated dev resource','Google & Facebook Ads management','Weekly strategy calls'],'featured':false}
+      ] %}
+      {% for plan in plans %}
+      <div class="col-lg-4 reveal">
+        <div class="price-card {{ 'featured' if plan.featured }}">
+          <h5 class="text-uppercase" style="font-family:var(--font-mono);font-size:.85rem;letter-spacing:.06em;color:var(--ink-soft);">{{ plan.name }}</h5>
+          <div class="amount">{{ plan.price }}<span class="fs-6 fw-normal text-secondary">{{ plan.period }}</span></div>
+          <p class="text-secondary mt-2 mb-0">{{ plan.desc }}</p>
+          <ul>
+            {% for f in plan.features %}
+            <li><i class="fa-solid fa-circle-check"></i><span>{{ f }}</span></li>
+            {% endfor %}
+          </ul>
+          <a href="{{ url_for('main.contact') }}" class="btn {{ 'btn-signal' if plan.featured else 'btn-outline-signal' }} w-100">Choose {{ plan.name }}</a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>

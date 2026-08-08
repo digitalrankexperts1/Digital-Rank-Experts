@@ -1,0 +1,49 @@
+<aside aria-label="Blog sidebar">
+  <div class="side-widget">
+    <h6>Search</h6>
+    <form action="{{ url_for('main.search') }}" method="get" role="search">
+      <div class="input-group">
+        <label for="sidebarSearch" class="visually-hidden">Search articles</label>
+        <input type="search" id="sidebarSearch" name="q" class="form-control" placeholder="Search articles&hellip;" value="{{ request.args.get('q','') }}">
+        <button class="btn btn-signal" type="submit" aria-label="Search"><i class="fa-solid fa-magnifying-glass"></i></button>
+      </div>
+    </form>
+  </div>
+
+  <div class="side-widget">
+    <h6>Categories</h6>
+    <ul class="list-unstyled mb-0">
+      {% for cat in (blog_categories if blog_categories is defined else [('SEO Strategy',18),('Local SEO',9),('Content Marketing',12),('Paid Ads',7),('Web Development',10)]) %}
+      <li class="d-flex justify-content-between mb-2">
+        <a href="{{ url_for('main.blog', category=cat[0]) }}">{{ cat[0] }}</a>
+        <span class="text-secondary small">{{ cat[1] }}</span>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <div class="side-widget">
+    <h6>Recent Posts</h6>
+    {% for post in (recent_posts if recent_posts is defined else [
+      {'title':'12 Local SEO Ranking Factors for 2026','slug':'local-seo-ranking-factors-2026'},
+      {'title':'How We Increased Organic Traffic 4.6x','slug':'organic-traffic-case-study'},
+      {'title':'Technical SEO Checklist for Shopify Stores','slug':'technical-seo-shopify-checklist'}
+    ]) %}
+    <div class="d-flex gap-3 mb-3">
+      <div class="rounded" style="width:56px;height:56px;flex-shrink:0;background:var(--signal-tint);"></div>
+      <div>
+        <a href="{{ url_for('main.blog_detail', slug=post.slug) }}" class="small fw-semibold d-block">{{ post.title }}</a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <div class="side-widget mb-0">
+    <h6>Popular Tags</h6>
+    <div class="d-flex flex-wrap gap-2">
+      {% for tag in (blog_tags if blog_tags is defined else ['SEO','Local SEO','Link Building','GBP','Content','Shopify','Google Ads']) %}
+      <a href="{{ url_for('main.blog', tag=tag) }}" class="tag-pill">{{ tag }}</a>
+      {% endfor %}
+    </div>
+  </div>
+</aside>

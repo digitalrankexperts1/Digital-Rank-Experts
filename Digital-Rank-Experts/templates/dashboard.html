@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block title %}Client Dashboard | Digital Rank Experts{% endblock %}
+{% block meta_robots %}noindex, nofollow{% endblock %}
+
+{% block content %}
+<div class="breadcrumb-band py-4">
+  <div class="dre-container d-flex justify-content-between align-items-center flex-wrap gap-3">
+    <div>
+      <p class="eyebrow mb-1">Client Dashboard</p>
+      <h1 class="text-white mb-0" style="font-size:1.8rem;">Welcome back{{ ', ' ~ current_user.name if current_user is defined and current_user.is_authenticated and current_user.name else '' }}</h1>
+    </div>
+    <a href="{{ url_for('logout') if 'logout' in (url_map_endpoints|default([])) else url_for('auth.login') }}" class="btn btn-outline-signal" style="border-color:#3A4356;color:#fff;">Log Out</a>
+  </div>
+</div>
+
+<section class="pt-5">
+  <div class="dre-container">
+    <div class="row g-4 mb-4">
+      <div class="col-6 col-lg-3">
+        <div class="kpi-card">
+          <div class="d-flex justify-content-between align-items-start mb-2">
+            <span class="text-secondary small">Keywords Ranked</span>
+            <span class="rank-chip up"><i class="fa-solid fa-arrow-up"></i> 12</span>
+          </div>
+          <div class="num">86</div>
+        </div>
+      </div>
+      <div class="col-6 col-lg-3">
+        <div class="kpi-card">
+          <div class="d-flex justify-content-between align-items-start mb-2">
+            <span class="text-secondary small">Organic Traffic</span>
+            <span class="rank-chip up"><i class="fa-solid fa-arrow-up"></i> 18%</span>
+          </div>
+          <div class="num">14.2k</div>
+        </div>
+      </div>
+      <div class="col-6 col-lg-3">
+        <div class="kpi-card">
+          <div class="d-flex justify-content-between align-items-start mb-2">
+            <span class="text-secondary small">Backlinks Earned</span>
+            <span class="rank-chip flat"><i class="fa-solid fa-minus"></i> 0</span>
+          </div>
+          <div class="num">142</div>
+        </div>
+      </div>
+      <div class="col-6 col-lg-3">
+        <div class="kpi-card">
+          <div class="d-flex justify-content-between align-items-start mb-2">
+            <span class="text-secondary small">Avg. Position</span>
+            <span class="rank-chip up"><i class="fa-solid fa-arrow-up"></i> 2.4</span>
+          </div>
+          <div class="num">6.1</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="dre-card">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h5 class="mb-0">Keyword Rank Tracker</h5>
+        <span class="small text-secondary">Updated daily</span>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-dre align-middle mb-0">
+          <thead>
+            <tr>
+              <th>Keyword</th>
+              <th>Current Position</th>
+              <th>Change (30d)</th>
+              <th>Search Volume</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in (rank_rows if rank_rows is defined else [
+              ('best seo agency lahore', '#2', 'up', '3', '880', 'live'),
+              ('ecommerce seo services', '#4', 'up', '6', '520', 'live'),
+              ('local seo pakistan', '#1', 'flat', '0', '390', 'live'),
+              ('shopify development lahore', '#11', 'watch', '2', '210', 'draft')
+            ]) %}
+            <tr>
+              <td>{{ row[0] }}</td>
+              <td class="fw-semibold">{{ row[1] }}</td>
+              <td><span class="rank-chip {{ row[2] }}"><i class="fa-solid fa-arrow-{{ 'up' if row[2]=='up' else ('down' if row[2]=='down' else 'minus') }}"></i> {{ row[3] }}</span></td>
+              <td>{{ row[4] }}</td>
+              <td><span class="status-badge {{ row[5] }}">{{ row[5]|capitalize }}</span></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

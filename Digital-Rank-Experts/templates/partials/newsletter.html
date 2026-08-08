@@ -1,0 +1,20 @@
+<section style="background:var(--indigo-tint);">
+  <div class="dre-container">
+    <div class="row align-items-center g-4">
+      <div class="col-lg-7">
+        <p class="eyebrow mb-2">Newsletter</p>
+        <h3 class="mb-2">The SEO Signal &mdash; one email a month, zero fluff.</h3>
+        <p class="text-secondary mb-0">Algorithm updates, ranking case studies, and what actually moved the needle for our clients.</p>
+      </div>
+      <div class="col-lg-5">
+        <form action="#" method="post" class="d-flex flex-column flex-sm-row gap-2 needs-validation" novalidate>
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <label for="newsletterEmail" class="visually-hidden">Email address</label>
+          <input type="email" id="newsletterEmail" name="email" class="form-control" placeholder="you@company.com" required>
+          <button class="btn btn-signal flex-shrink-0" type="submit">Subscribe</button>
+          <div class="invalid-feedback">Please enter a valid email address.</div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

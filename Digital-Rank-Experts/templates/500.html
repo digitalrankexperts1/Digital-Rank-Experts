@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}Server Error (500) | Digital Rank Experts{% endblock %}
+{% block meta_robots %}noindex, nofollow{% endblock %}
+
+{% block content %}
+<section class="error-shell">
+  <div class="dre-container text-center">
+    <p class="error-code mb-3">ERROR 500 &middot; SOMETHING BROKE SERVER-SIDE</p>
+    <h1 class="mb-3" style="font-size:clamp(2.4rem,6vw,4rem);">Something went wrong on our end, not yours.</h1>
+    <p class="text-secondary mx-auto mb-4" style="max-width:52ch;">Our team has been notified automatically. Please try again in a moment, or reach out if the issue persists.</p>
+    <div class="d-flex justify-content-center gap-3 flex-wrap">
+      <a href="{{ url_for('main.index') }}" class="btn btn-signal btn-lg">Back to Homepage</a>
+      <a href="{{ url_for('main.contact') }}" class="btn btn-outline-signal btn-lg">Report the Issue</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

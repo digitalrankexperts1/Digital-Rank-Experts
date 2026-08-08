@@ -1,0 +1,58 @@
+<nav class="navbar navbar-expand-lg dre-navbar py-3" aria-label="Primary navigation">
+  <div class="dre-container d-flex align-items-center justify-content-between w-100">
+    <a class="navbar-brand" href="{{ url_for('main.index') }}">
+      <span class="mark">Digital</span>Rank<span class="mark">Experts</span>
+    </a>
+
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#dreNavCollapse"
+            aria-controls="dreNavCollapse" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fa-solid fa-bars fs-4"></i>
+    </button>
+
+    <div class="collapse navbar-collapse" id="dreNavCollapse">
+      <ul class="navbar-nav mx-auto mb-3 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link {{ 'active' if request.endpoint == 'main.index' }}" href="{{ url_for('main.index') }}">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {{ 'active' if request.endpoint == 'main.about' }}" href="{{ url_for('main.about') }}">About</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle {{ 'active' if request.endpoint in ['main.services','main.service_detail'] }}"
+             href="{{ url_for('main.services') }}" id="servicesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Services
+          </a>
+          <ul class="dropdown-menu shadow-sm border-0" style="border-radius:12px;" aria-labelledby="servicesDropdown">
+            {% for item in (nav_services if nav_services is defined else [
+              ('Search Engine Optimization','seo'), ('Local SEO','local-seo'), ('Technical SEO','technical-seo'),
+              ('Link Building','link-building'), ('Google Ads','google-ads'), ('Website Development','website-development')
+            ]) %}
+            <li><a class="dropdown-item" href="{{ url_for('main.service_detail', slug=item[1]) }}">{{ item[0] }}</a></li>
+            {% endfor %}
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {{ 'active' if request.endpoint == 'main.portfolio' }}" href="{{ url_for('main.portfolio') }}">Portfolio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {{ 'active' if request.endpoint in ['main.blog','main.blog_detail'] }}" href="{{ url_for('main.blog') }}">Blog</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {{ 'active' if request.endpoint == 'main.contact' }}" href="{{ url_for('main.contact') }}">Contact</a>
+        </li>
+      </ul>
+
+      <div class="d-flex align-items-center gap-2">
+        <a href="{{ url_for('main.search') }}" class="btn btn-outline-signal btn-sm d-none d-lg-inline-flex" aria-label="Search the site">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </a>
+        {% if current_user is defined and current_user.is_authenticated %}
+          <a href="{{ url_for('admin.dashboard') }}" class="btn btn-outline-signal">Dashboard</a>
+        {% else %}
+          <a href="{{ url_for('auth.login') }}" class="btn btn-outline-signal d-none d-lg-inline-flex">Login</a>
+        {% endif %}
+        <a href="{{ url_for('main.contact') }}" class="btn btn-signal">Get Free Audit</a>
+      </div>
+    </div>
+  </div>
+</nav>

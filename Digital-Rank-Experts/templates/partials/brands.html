@@ -1,0 +1,14 @@
+<section class="py-4 border-top border-bottom" style="border-color:var(--line) !important;">
+  <div class="dre-container">
+    <p class="text-center text-uppercase small mb-4" style="font-family:var(--font-mono);letter-spacing:.1em;color:var(--ink-soft);">
+      Trusted by growing brands across Pakistan &amp; beyond
+    </p>
+    <div class="row g-4 align-items-center text-center">
+      {% for brand in (brands if brands is defined else ['Northline Retail','Bazaar Bay','UrbanNest','Foodex','Karez Textiles','Skyline Motors']) %}
+      <div class="col-4 col-md-2">
+        <span class="fw-semibold" style="color:#9AA3A8; font-family:var(--font-display); font-size:1.05rem;">{{ brand }}</span>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,27 @@
+{# Usage: {% include 'partials/pagination.html' %} where `pagination` is a Flask-SQLAlchemy Pagination object
+   and `pagination_endpoint` is the endpoint name to build page links against. #}
+{% if pagination is defined and pagination.pages > 1 %}
+<nav aria-label="Pagination">
+  <ul class="pagination dre-pagination justify-content-center mt-4">
+    <li class="page-item {{ 'disabled' if not pagination.has_prev }}">
+      <a class="page-link" href="{{ url_for(pagination_endpoint, page=pagination.prev_num) if pagination.has_prev else '#' }}" aria-label="Previous page">
+        <i class="fa-solid fa-chevron-left"></i>
+      </a>
+    </li>
+    {% for p in pagination.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+      {% if p %}
+        <li class="page-item {{ 'active' if p == pagination.page }}">
+          <a class="page-link" href="{{ url_for(pagination_endpoint, page=p) }}" {{ 'aria-current=page' if p == pagination.page }}>{{ p }}</a>
+        </li>
+      {% else %}
+        <li class="page-item disabled"><span class="page-link">&hellip;</span></li>
+      {% endif %}
+    {% endfor %}
+    <li class="page-item {{ 'disabled' if not pagination.has_next }}">
+      <a class="page-link" href="{{ url_for(pagination_endpoint, page=pagination.next_num) if pagination.has_next else '#' }}" aria-label="Next page">
+        <i class="fa-solid fa-chevron-right"></i>
+      </a>
+    </li>
+  </ul>
+</nav>
+{% endif %}

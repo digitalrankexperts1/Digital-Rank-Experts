@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}Access Forbidden (403) | Digital Rank Experts{% endblock %}
+{% block meta_robots %}noindex, nofollow{% endblock %}
+
+{% block content %}
+<section class="error-shell">
+  <div class="dre-container text-center">
+    <p class="error-code mb-3">ERROR 403 &middot; ACCESS RESTRICTED</p>
+    <h1 class="mb-3" style="font-size:clamp(2.4rem,6vw,4rem);">You don't have permission to view this page.</h1>
+    <p class="text-secondary mx-auto mb-4" style="max-width:52ch;">This area is restricted. If you believe this is a mistake, log in with an authorized account or contact our team.</p>
+    <div class="d-flex justify-content-center gap-3 flex-wrap">
+      <a href="{{ url_for('auth.login') }}" class="btn btn-signal btn-lg">Log In</a>
+      <a href="{{ url_for('main.contact') }}" class="btn btn-outline-signal btn-lg">Contact Support</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

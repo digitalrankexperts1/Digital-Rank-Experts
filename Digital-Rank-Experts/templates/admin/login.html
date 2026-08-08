@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin Login | Digital Rank Experts</title>
+  <meta name="robots" content="noindex, nofollow">
+  {% include 'partials/styles.html' %}
+</head>
+<body style="background:var(--ink);">
+  <div class="d-flex align-items-center justify-content-center" style="min-height:100vh;">
+    <div class="auth-card">
+      <div class="text-center mb-4">
+        <a href="{{ url_for('main.index') }}" class="footer-brand text-decoration-none">Digital<span style="color:var(--signal-2)">Rank</span>Experts</a>
+        <p class="small mt-1" style="color:#7C8698;">Admin Panel</p>
+      </div>
+      <div class="dre-card" style="background:#161C28; border-color:#262E3D;">
+        <h4 class="mb-1 text-white">Administrator Login</h4>
+        <p class="mb-4" style="color:#8A93A3;">Restricted access &mdash; authorized staff only.</p>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="alert alert-{{ 'danger' if category == 'error' else category }}" role="alert">{{ message }}</div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+
+        <form method="post" action="{{ url_for('admin_login') }}" class="needs-validation" novalidate>
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <div class="mb-3">
+            <label for="adminEmail" class="text-white">Email Address</label>
+            <input type="email" class="form-control" id="adminEmail" name="email" required autofocus>
+            <div class="invalid-feedback">Please enter a valid email.</div>
+          </div>
+          <div class="mb-4">
+            <label for="adminPassword" class="text-white">Password</label>
+            <input type="password" class="form-control" id="adminPassword" name="password" required minlength="8">
+            <div class="invalid-feedback">Password must be at least 8 characters.</div>
+          </div>
+          <button type="submit" class="btn btn-signal btn-lg w-100">Log In to Admin</button>
+        </form>
+      </div>
+      <p class="text-center small mt-4"><a href="{{ url_for('index') }}" style="color:#7C8698;"><i class="fa-solid fa-arrow-left me-1"></i>Back to website</a></p>
+    </div>
+  </div>
+  {% include 'partials/scripts.html' %}
+</body>
+</html>

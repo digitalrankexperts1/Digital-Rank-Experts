@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% set page_title = "Search Results" %}
+{% set page_eyebrow = "Search" %}
+{% set breadcrumbs = [('Search', none)] %}
+
+{% block title %}Search {{ ('“' + request.args.get('q') + '”') if request.args.get('q') else '' }} | Digital Rank Experts{% endblock %}
+{% block meta_robots %}noindex, follow{% endblock %}
+
+{% block content %}
+{% include 'partials/breadcrumb.html' %}
+
+<section>
+  <div class="dre-container">
+    <form action="{{ url_for('main.search') }}" method="get" role="search" class="mb-5">
+      <div class="input-group input-group-lg" style="max-width:640px;">
+        <label for="mainSearch" class="visually-hidden">Search</label>
+        <input type="search" id="mainSearch" name="q" class="form-control" placeholder="Search services, blog posts, case studies&hellip;" value="{{ request.args.get('q','') }}">
+        <button class="btn btn-signal" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+      </div>
+    </form>
+
+    {% if results is defined and results %}
+      <p class="text-secondary mb-4">{{ results|length }} result{{ 's' if results|length != 1 }} for &ldquo;{{ request.args.get('q','') }}&rdquo;</p>
+      <div class="row g-4">
+        {% for r in results %}
+        <div class="col-md-6">
+          <div class="dre-card">
+            <span class="tag-pill mb-2 d-inline-block">{{ r.type }}</span>
+            <h5><a href="{{ r.url }}" class="text-reset text-decoration-none">{{ r.title }}</a></h5>
+            <p class="text-secondary small mb-0">{{ r.excerpt }}</p>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    {% elif request.args.get('q') %}
+      <div class="text-center py-5">
+        <i class="fa-solid fa-magnifying-glass-minus fa-2x mb-3" style="color:var(--ink-soft);"></i>
+        <h5>No results for &ldquo;{{ request.args.get('q') }}&rdquo;</h5>
+        <p class="text-secondary">Try a different term, or browse our <a href="{{ url_for('main.services') }}">services</a> and <a href="{{ url_for('main.blog') }}">blog</a> directly.</p>
+      </div>
+    {% else %}
+      <p class="text-secondary">Try searching for a service, a location, or a blog topic.</p>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}
